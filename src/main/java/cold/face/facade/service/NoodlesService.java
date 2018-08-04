@@ -6,4 +6,6 @@ public interface NoodlesService {
     ResponseDTO getNoodlesTypeByJDBCTmp();
 
     ResponseDTO getNoodlesTypeByMybatis();
+
+    ResponseDTO getNoodlesTypeBySqlProvider();
 }

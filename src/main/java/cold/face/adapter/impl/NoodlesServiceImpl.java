@@ -63,4 +63,12 @@ public class NoodlesServiceImpl implements NoodlesService {
         responseDTO.setData(types);
         return responseDTO;
     }
+
+    @Override
+    public ResponseDTO getNoodlesTypeBySqlProvider() {
+        ResponseDTO responseDTO = new ResponseDTO();
+        List<NoodlesType> types = noodlesTypeMapper.getNoodlesTypeBySqlProvider();
+        responseDTO.setData(types);
+        return responseDTO;
+    }
 }

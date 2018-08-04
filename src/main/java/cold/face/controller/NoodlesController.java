@@ -50,4 +50,10 @@ public class NoodlesController {
     public ResponseDTO getNoodlesTypeByMybatis() {
         return noodlesService.getNoodlesTypeByMybatis();
     }
+
+    @RequestMapping("/NoodlesType/get/v1-3")
+    @ResponseBody
+    public ResponseDTO getNoodlesTypeBySqlProvider() {
+        return noodlesService.getNoodlesTypeBySqlProvider();
+    }
 }

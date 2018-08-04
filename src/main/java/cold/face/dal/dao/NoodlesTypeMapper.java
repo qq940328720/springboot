@@ -1,6 +1,8 @@
 package cold.face.dal.dao;
 
 import cold.face.dal.model.NoodlesType;
+import cold.face.dal.sqlprovider.NoodlesTypeProvider;
+import org.apache.ibatis.annotations.SelectProvider;
 
 import java.util.List;
 
@@ -62,4 +64,7 @@ public interface NoodlesTypeMapper {
     int updateByPrimaryKey(NoodlesType record);
 
     List<NoodlesType> getAllNoodlesType();
+
+    @SelectProvider(type = NoodlesTypeProvider.class, method = "selectNoodlesType")
+    List<NoodlesType> getNoodlesTypeBySqlProvider();
 }
