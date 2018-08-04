@@ -71,4 +71,13 @@ public class NoodlesServiceImpl implements NoodlesService {
         responseDTO.setData(types);
         return responseDTO;
     }
+
+    @Override
+    public ResponseDTO exceptionTest() {
+        ResponseDTO responseDTO = new ResponseDTO();
+        List<NoodlesType> types = null;
+        types.get(0).setRemark("aaaa");
+        responseDTO.setData(types);
+        return responseDTO;
+    }
 }

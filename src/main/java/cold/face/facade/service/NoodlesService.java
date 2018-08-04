@@ -8,4 +8,6 @@ public interface NoodlesService {
     ResponseDTO getNoodlesTypeByMybatis();
 
     ResponseDTO getNoodlesTypeBySqlProvider();
+
+    ResponseDTO exceptionTest();
 }

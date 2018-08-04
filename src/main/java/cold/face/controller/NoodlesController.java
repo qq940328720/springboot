@@ -56,4 +56,10 @@ public class NoodlesController {
     public ResponseDTO getNoodlesTypeBySqlProvider() {
         return noodlesService.getNoodlesTypeBySqlProvider();
     }
+
+    @RequestMapping("/exceptionTest")
+    @ResponseBody
+    public ResponseDTO exceptionTest() {
+        return noodlesService.exceptionTest();
+    }
 }
