@@ -30,8 +30,9 @@ public class FileUtils {
             } catch (Exception e) {
                 return null;
             }
-        } else
+        } else {
             return "";
+        }
     }
 
     /**

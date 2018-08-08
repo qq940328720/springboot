@@ -257,8 +257,9 @@ public class DateUtils {
             return null;
         }
 
-        if (dateText.length() == 10)
+        if (dateText.length() == 10) {
             dateText = dateText + " 00:00:00";
+        }
 
         DateFormat df = null;
 
@@ -323,8 +324,9 @@ public class DateUtils {
         if (dateText == null) {
             return null;
         }
-        if (dateText.length() == 10)
+        if (dateText.length() == 10) {
             dateText = dateText + " 00:00:00";
+        }
         DateFormat df = null;
         try {
             df = new SimpleDateFormat(DATETIME_PATTERN);
@@ -845,8 +847,9 @@ public class DateUtils {
     }
 
     private static Date str2Date(String str) {
-        if (str == null)
+        if (str == null) {
             return null;
+        }
 
         try {
             return format.parse(str);
@@ -1047,8 +1050,9 @@ public class DateUtils {
     // date类型转换为long类型
     // date要转换的date类型的时间
     public static long date2Long(Date date) {
-        if (date == null)
+        if (date == null) {
             return 0;
+        }
         return date.getTime();
     }
 
