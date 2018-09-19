@@ -23,7 +23,7 @@ public class NoodlesApplication {
         //启动spring boot应用
         SpringApplication sa = new SpringApplication(NoodlesApplication.class);
         //禁用devTools热部署
-//        System.setProperty("spring.devtools.restart.enabled", "false");
+        System.setProperty("spring.devtools.restart.enabled", "true");
         //禁用命令行更改application.properties属性
         sa.setAddCommandLineProperties(false);
         sa.run(args);

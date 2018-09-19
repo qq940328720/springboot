@@ -94,6 +94,17 @@
             <artifactId>mybatis</artifactId>
             <version>3.4.5</version>
         </dependency>
+        <!-- spring boot集成Swagger2-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.6.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -116,6 +127,13 @@
                 <configuration>
                     <verbose>true</verbose>
                     <overwrite>true</overwrite>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
         </plugins>
