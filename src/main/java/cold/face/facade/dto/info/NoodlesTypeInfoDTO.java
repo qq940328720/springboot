@@ -3,21 +3,20 @@ package cold.face.facade.dto.info;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.math.BigDecimal;
+@ApiModel(description = "面条分类信息实体")
+public class NoodlesTypeInfoDTO {
 
-@ApiModel(description = "面条信息实体")
-public class NoodlesInfoDTO {
     @ApiModelProperty(value = "id", hidden = true)
     private Integer id;
-
-    @ApiModelProperty(value = "名称", required = true)
-    private String noodlesName;
 
     @ApiModelProperty(value = "分类编码", required = true)
     private String typeCode;
 
-    @ApiModelProperty(value = "价格(元/碗)", required = true)
-    private BigDecimal price;
+    @ApiModelProperty(value = "分类名称", required = true)
+    private String name;
+
+    @ApiModelProperty(value = "上级分类编码")
+    private String parentTypeCode;
 
     @ApiModelProperty(value = "备注")
     private String remark;
@@ -30,14 +29,6 @@ public class NoodlesInfoDTO {
         this.id = id;
     }
 
-    public String getNoodlesName() {
-        return noodlesName;
-    }
-
-    public void setNoodlesName(String noodlesName) {
-        this.noodlesName = noodlesName;
-    }
-
     public String getTypeCode() {
         return typeCode;
     }
@@ -46,12 +37,20 @@ public class NoodlesInfoDTO {
         this.typeCode = typeCode;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public String getName() {
+        return name;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getParentTypeCode() {
+        return parentTypeCode;
+    }
+
+    public void setParentTypeCode(String parentTypeCode) {
+        this.parentTypeCode = parentTypeCode;
     }
 
     public String getRemark() {
@@ -64,11 +63,11 @@ public class NoodlesInfoDTO {
 
     @Override
     public String toString() {
-        return "NoodlesInfoDTO{" +
+        return "NoodlesTypeInfoDTO{" +
                 "id=" + id +
-                ", noodlesName='" + noodlesName + '\'' +
                 ", typeCode='" + typeCode + '\'' +
-                ", price=" + price +
+                ", name='" + name + '\'' +
+                ", parentTypeCode='" + parentTypeCode + '\'' +
                 ", remark='" + remark + '\'' +
                 '}';
     }

@@ -42,7 +42,8 @@ public class Swagger2Config {
                 .select()
                 .apis(RequestHandlerSelectors
                         .basePackage("cold.face.controller"))
-                .paths(PathSelectors.regex("/coldface/.*"))//过滤的接口
+//                .paths(PathSelectors.regex("/coldface/.*"))//过滤的接口
+                .paths(PathSelectors.regex("/.*"))//过滤的接口
                 //.paths(PathSelectors.any())//任何路径
                 .build();
     }

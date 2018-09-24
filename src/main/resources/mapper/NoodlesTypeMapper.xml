@@ -163,4 +163,13 @@
     <select id="getAllNoodlesType" resultMap="ResultMapWithBLOBs">
     select * FROM noodles_type
   </select>
+
+    <select id="getNoodlesTypeByTypeCode" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from noodles_type
+        where type_code = #{typeCode}
+    </select>
 </mapper>

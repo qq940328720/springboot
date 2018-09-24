@@ -67,4 +67,6 @@ public interface NoodlesTypeMapper {
 
     @SelectProvider(type = NoodlesTypeProvider.class, method = "selectNoodlesType")
     List<NoodlesType> getNoodlesTypeBySqlProvider();
+
+    NoodlesType getNoodlesTypeByTypeCode(String typeCode);
 }
