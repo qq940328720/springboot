@@ -5,11 +5,14 @@ import cold.face.facade.service.MyTestService;
 import cold.face.schedule.Tasks;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.concurrent.Future;
 
 @Controller
@@ -19,6 +22,7 @@ public class MyTestController {
 
     @Autowired
     private MyTestService myTestService;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private Tasks tasks;
@@ -112,5 +116,25 @@ public class MyTestController {
         }
         responseDTO.setMessage(tasks.getExcuteOrder());
         return responseDTO;
+    }
+
+    @RequestMapping("/wyait")
+    @ResponseBody
+    public String getMsg(HttpServletResponse response) {
+        logger.debug("===========debug信息>>>>");
+        logger.info("===========info信息>>>>");
+        logger.trace("I am trace log.");
+        logger.debug("I am debug log.");
+        logger.warn("I am warn log.");
+        logger.error("I am error log.");
+        // 手动异常
+        System.out.println(1 / 0);
+        // 会有中文乱码问题 TODO
+//        return paramProperties.getWyaitName() +" 正在写"
+//                + paramProperties.getWyaitTitle() +"!总结："
+//                + paramProperties.getWyaitMessage();
+        return "paramProperties.getWyaitName()" + " 正在写"
+                + "paramProperties.getWyaitTitle()" + "!总结："
+                + "paramProperties.getWyaitMessage()";
     }
 }

@@ -30,6 +30,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions><!-- 去掉默认配置 -->
+                <!-- 因为SpringBoot的logging与log4j有冲突,所以需要制定忽略其中一个,这里忽略了SpringBoot自带的 -->
+                <!-- log4j 报异常：Exception in thread "main" java.lang.StackOverflowError -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--  spring-boot-starter：核心模块，包括自动配置支持、日志和YAML-->
         <dependency>
@@ -106,11 +114,33 @@
             <version>2.6.1</version>
         </dependency>
 
+        <!-- 导入log4j2依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+        <!-- log4j2支持异步日志，导入disruptor依赖 -->
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+            <version>3.3.6</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.google.code/sitemapgen4j -->
         <dependency>
             <groupId>com.google.code</groupId>
             <artifactId>sitemapgen4j</artifactId>
             <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>5.0.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>5.0.7.RELEASE</version>
         </dependency>
     </dependencies>
 
