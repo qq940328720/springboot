@@ -133,6 +133,12 @@
             <version>1.0.25</version>
         </dependency>
 
+        <!--引入spring boot actuator监控 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.google.code/sitemapgen4j -->
         <dependency>
             <groupId>com.google.code</groupId>
