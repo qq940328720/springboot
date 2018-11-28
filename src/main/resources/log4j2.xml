@@ -9,10 +9,8 @@
         <Property name="instance">spring-boot-log</Property>
         <Property name="log.dir">D:\Idea-WorkSpace\logs</Property>
     </Properties>
-
     <!-- 定义所有的appender -->
     <Appenders>
-
         <!--这个输出控制台的配置-->
         <Console name="Console" target="SYSTEM_OUT">
             <!--输出日志的格式-->
@@ -81,13 +79,11 @@
         </RollingRandomAccessFile>
     </Appenders>
 
-
     <!-- 全局配置，默认所有的Logger都继承此配置 -->
     <!-- 用来配置LoggerConfig，包含一个root logger和若干个普通logger。
     additivity指定是否同时输出log到父类的appender，缺省为true。
     一个Logger可以绑定多个不同的Appender。只有定义了logger并引入的appender，appender才会生效。 -->
     <Loggers>
-
         <!-- 第三方的软件日志级别 -->
         <logger name="org.springframework" level="info" additivity="true">
             <AppenderRef ref="warnLog"/>

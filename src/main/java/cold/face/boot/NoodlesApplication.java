@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication(scanBasePackages = "cold.face")//@SpringBootApplication：Spring Boot项目的核心注解，主要目的是开启自动配置。
 @MapperScan(basePackages = "cold.face.dal.dao")
 //@EnableScheduling//开启定时任务
-@EnableAsync//开启异步调用(包含开启定时任务)
+@EnableAsync//开启异步调用
 public class NoodlesApplication {
 
     public static void main(String[] args) {

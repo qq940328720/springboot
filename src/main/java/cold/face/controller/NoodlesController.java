@@ -18,7 +18,7 @@ public class NoodlesController {
 
     @ResponseBody
     @PostMapping("add")
-    @ApiOperation(value = "addNoodlesType", notes = "添加面条")
+    @ApiOperation(value = "addNoodlesType", notes = "添加面条分类")
     public ResponseDTO addNoodlesType(@RequestBody NoodlesTypeInfoDTO request) {
         return noodlesService.addNoodlesType(request);
     }

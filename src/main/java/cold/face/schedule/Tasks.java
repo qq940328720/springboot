@@ -90,4 +90,12 @@ public class Tasks {
         System.out.println(excuteOrder);
         return new AsyncResult<>(excuteOrder);
     }
+
+    public static void main(String[] args) throws Exception {
+        try {
+            throw new Exception("");
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }

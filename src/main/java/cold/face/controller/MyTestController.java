@@ -118,8 +118,9 @@ public class MyTestController {
         return responseDTO;
     }
 
-    @RequestMapping("/wyait")
+    @RequestMapping(value = "/wyait", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value = "getMsg", notes = "getMsg")
     public String getMsg(HttpServletResponse response) {
         logger.debug("===========debug信息>>>>");
         logger.info("===========info信息>>>>");

@@ -126,6 +126,13 @@
             <version>3.3.6</version>
         </dependency>
 
+        <!--druid连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.0.25</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.google.code/sitemapgen4j -->
         <dependency>
             <groupId>com.google.code</groupId>
