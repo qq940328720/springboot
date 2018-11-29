@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,9 @@ public class MyTestController {
     @Autowired
     private MyTestService myTestService;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
     private Tasks tasks;
@@ -137,5 +141,13 @@ public class MyTestController {
         return "paramProperties.getWyaitName()" + " 正在写"
                 + "paramProperties.getWyaitTitle()" + "!总结："
                 + "paramProperties.getWyaitMessage()";
+    }
+
+    @RequestMapping(value = "/setRedis", method = RequestMethod.GET)
+    @ResponseBody
+    public String setRedis() {
+        //保存字符串
+        stringRedisTemplate.opsForValue().set("test", "111");
+        return "ok";
     }
 }

@@ -114,6 +114,13 @@
             <version>2.6.1</version>
         </dependency>
 
+        <!--导入redis依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-redis</artifactId>
+            <version>1.3.0.RELEASE</version>
+        </dependency>
+
         <!-- 导入log4j2依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -144,11 +151,6 @@
             <groupId>com.google.code</groupId>
             <artifactId>sitemapgen4j</artifactId>
             <version>1.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>5.0.7.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
