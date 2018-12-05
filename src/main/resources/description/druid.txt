@@ -28,3 +28,7 @@ Druid可以做什么？
 1.2  集成Druid
 
  Druid简单介绍，具体看官网；http://druid.io/
+
+
+
+ 静态资源的映射路径，优先级顺序为：META-INF/resources > resources >static > public

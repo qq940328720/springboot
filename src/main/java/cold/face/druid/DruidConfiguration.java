@@ -11,12 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @项目名称：mybatis-spring-boot
- * @类名称：DruidConfiguration
  * @类描述：Druid监控servelet和filter配置
- * @创建人：wyait
- * @创建时间：2017年6月29日下午3:04:15
- * @version：
  */
 @Configuration
 public class DruidConfiguration {

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@Api(description = "面条相关操作")
+@Api(description = "Noodles相关操作")
 @RequestMapping("noodles")
 public class NoodlesController {
 
@@ -18,7 +18,7 @@ public class NoodlesController {
 
     @ResponseBody
     @PostMapping("add")
-    @ApiOperation(value = "addNoodlesType", notes = "添加面条分类")
+    @ApiOperation(value = "addNoodlesType", notes = "添加Noodles分类")
     public ResponseDTO addNoodlesType(@RequestBody NoodlesTypeInfoDTO request) {
         return noodlesService.addNoodlesType(request);
     }
