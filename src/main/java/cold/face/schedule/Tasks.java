@@ -1,5 +1,7 @@
 package cold.face.schedule;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
@@ -8,6 +10,8 @@ import java.util.concurrent.Future;
 
 @Component
 public class Tasks {
+
+    private static Logger log = LoggerFactory.getLogger(Tasks.class);
 
     private String excuteOrder = "";
 
@@ -21,73 +25,73 @@ public class Tasks {
 
     @Async
     public void taskOne() throws Exception {
-        System.out.println("task1 start:");
+        log.info("task1 start:");
         Thread.sleep(8000L);
-        System.out.println("task1 end:");
-        System.out.println(excuteOrder);
+        log.info("task1 end:");
+        log.info(excuteOrder);
     }
 
     @Async
     public void taskoTwo() throws Exception {
-        System.out.println("task2 start:");
+        log.info("task2 start:");
         Thread.sleep(5000L);
-        System.out.println("task2 end:");
-        System.out.println(excuteOrder);
+        log.info("task2 end:");
+        log.info(excuteOrder);
     }
 
     @Async
     public void taskThree() throws Exception {
-        System.out.println("task3 start:");
+        log.info("task3 start:");
         Thread.sleep(3000L);
-        System.out.println("task3 end:");
-        System.out.println(excuteOrder);
+        log.info("task3 end:");
+        log.info(excuteOrder);
     }
 
     @Async
     public void taskFour() throws Exception {
-        System.out.println("task4 start:");
+        log.info("task4 start:");
         Thread.sleep(7000L);
-        System.out.println("task4 end:");
-        System.out.println(excuteOrder);
+        log.info("task4 end:");
+        log.info(excuteOrder);
     }
 
     @Async
     public Future<String> taskOneOne() throws Exception {
-        System.out.println("task11 start:");
+        log.info("task11 start:");
         Thread.sleep(8000L);
-        System.out.println("task11 end:");
+        log.info("task11 end:");
         excuteOrder += "11";
-        System.out.println(excuteOrder);
+        log.info(excuteOrder);
         return new AsyncResult<>(excuteOrder);
     }
 
     @Async
     public Future<String> taskoTwoTwo() throws Exception {
-        System.out.println("task22 start:");
+        log.info("task22 start:");
         Thread.sleep(5000L);
-        System.out.println("task22 end:");
+        log.info("task22 end:");
         excuteOrder += "22";
-        System.out.println(excuteOrder);
+        log.info(excuteOrder);
         return new AsyncResult<>(excuteOrder);
     }
 
     @Async
     public Future<String> taskThreeThree() throws Exception {
-        System.out.println("task33 start:");
+        log.info("task33 start:");
         Thread.sleep(3000L);
-        System.out.println("task33 end:");
+        log.info("task33 end:");
         excuteOrder += "33";
-        System.out.println(excuteOrder);
+        log.info(excuteOrder);
         return new AsyncResult<>(excuteOrder);
     }
 
     @Async
     public Future<String> taskFourFour() throws Exception {
-        System.out.println("task44 start:");
+        log.info("task44 start:");
         Thread.sleep(7000L);
-        System.out.println("task44 end:");
+        log.info("task44 end:");
         excuteOrder += "44";
-        System.out.println(excuteOrder);
+        log.info(excuteOrder);
         return new AsyncResult<>(excuteOrder);
     }
 

@@ -1,5 +1,8 @@
 package cold.face.common;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,6 +16,8 @@ import java.util.*;
  * 日期辅助类
  */
 public class DateUtils {
+
+    private static Logger log = LoggerFactory.getLogger(DateUtils.class);
 
     /**
      * Base ISO 8601 Date format yyyyMMdd i.e., 20021225 for the 25th day of
@@ -65,16 +70,16 @@ public class DateUtils {
      */
     public static final Date toDate(float JD) {
 
-		/*
+        /*
          * To convert a Julian Day Number to a Gregorian date, assume that it is
-		 * for 0 hours, Greenwich time (so that it ends in 0.5). Do the
-		 * following calculations, again dropping the fractional part of all
-		 * multiplicatons and divisions. Note: This method will not give dates
-		 * accurately on the Gregorian Proleptic Calendar, i.e., the calendar
-		 * you get by extending the Gregorian calendar backwards to years
-		 * earlier than 1582. using the Gregorian leap year rules. In
-		 * particular, the method fails if Y<400.
-		 */
+         * for 0 hours, Greenwich time (so that it ends in 0.5). Do the
+         * following calculations, again dropping the fractional part of all
+         * multiplicatons and divisions. Note: This method will not give dates
+         * accurately on the Gregorian Proleptic Calendar, i.e., the calendar
+         * you get by extending the Gregorian calendar backwards to years
+         * earlier than 1582. using the Gregorian leap year rules. In
+         * particular, the method fails if Y<400.
+         */
         float Z = (normalizedJulian(JD)) + 0.5f;
         float W = (int) ((Z - 1867216.25f) / 36524.25f);
         float X = (int) (W / 4f);
@@ -819,7 +824,7 @@ public class DateUtils {
         List<Date> dateList = new ArrayList<Date>();
 
         if (date1.equals(date2)) {
-//			System.out.println("两个日期相等!");
+//			log.info("两个日期相等!");
             dateList.add(DateUtils.stringToDate(date2, "yyyy-MM-dd"));
             return dateList;
         }
@@ -835,14 +840,14 @@ public class DateUtils {
 
         int num = 0;
         while (tmp.compareTo(date2) < 0) {
-//			System.out.println(tmp);
+//			log.info(tmp);
             dateList.add(DateUtils.stringToDate(tmp, "yyyy-MM-dd"));
             num++;
             tmp = format.format(str2Date(tmp).getTime() + 3600 * 24 * 1000);
         }
 
 //		if (num == 0)
-//			System.out.println("两个日期相邻!");
+//			log.info("两个日期相邻!");
         return dateList;
     }
 
@@ -900,7 +905,7 @@ public class DateUtils {
 
     public static void main(String[] args) throws ParseException {
 
-//			System.out.println(calculateMonthIn(str2Date("2016-4-6 00:00:00"),str2Date("2014-4-6 00:00:00")));
+//			log.info(calculateMonthIn(str2Date("2016-4-6 00:00:00"),str2Date("2014-4-6 00:00:00")));
 
 //		  DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
 //		  try {
@@ -916,7 +921,7 @@ public class DateUtils {
         String dstr = "2017-05-01 00:00:00";
         for (int i = 1; i <= 6; i++) {
             String date = sdf.format(dateIncreaseByMonth(sdf.parse(dstr), i));
-            System.out.println(date);
+            log.info(date);
         }
 
     }
@@ -946,7 +951,7 @@ public class DateUtils {
                 lastDate.set(Calendar.MONTH, minDate.getMonth() + (i + 1));
                 lastDate.set(Calendar.DATE, 1);// 把日期设置为当月第一天
                 lastDate.roll(Calendar.DATE, -1);// 日期回滚一天，也就是本月最后一天
-//	                System.out.println("====>"+lastDate.getTime());
+//	                log.info("====>"+lastDate.getTime());
 
                 if (lastDate.getTime().getDate() <= DAY_OF_MONTH) {
                     Calendar calendar = Calendar.getInstance();
@@ -1017,7 +1022,7 @@ public class DateUtils {
         try {
             date = formatter.parse(strTime);
         } catch (ParseException e) {
-            System.out.println("string类型转换为date类型异常" + e.getMessage());
+            log.info(String.format("string类型转换为date类型异常:{0}", e.getMessage()));
         }
         return date;
     }

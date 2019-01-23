@@ -1,5 +1,8 @@
 package cold.face.common;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +12,7 @@ import java.util.zip.ZipOutputStream;
 public class MyZipUtils {
 
     private static final int BUFFER_SIZE = 2 * 1024;
+    private static Logger log = LoggerFactory.getLogger(MyZipUtils.class);
 
     /**
      * 压缩成ZIP 方法1
@@ -29,7 +33,7 @@ public class MyZipUtils {
             File sourceFile = new File(srcDir);
             compress(sourceFile, zos, sourceFile.getName(), KeepDirStructure);
             long end = System.currentTimeMillis();
-            System.out.println("压缩完成，耗时：" + (end - start) + " ms");
+            log.info("压缩完成，耗时：" + (end - start) + " ms");
         } catch (Exception e) {
             throw new RuntimeException("zip error from ZipUtils", e);
         } finally {
@@ -68,7 +72,7 @@ public class MyZipUtils {
                 in.close();
             }
             long end = System.currentTimeMillis();
-            System.out.println("压缩完成，耗时：" + (end - start) + " ms");
+            log.info("压缩完成，耗时：" + (end - start) + " ms");
         } catch (Exception e) {
             throw new RuntimeException("zip error from ZipUtils", e);
         } finally {

@@ -1,11 +1,17 @@
 package cold.face.common;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 
 /**
  * Created by ylj on 18-5-15.
  */
 public class FileUtils {
+
+    private static Logger log = LoggerFactory.getLogger(FileUtils.class);
+
     /**
      * 读取txt
      *
@@ -52,7 +58,7 @@ public class FileUtils {
             bw.write(content);
             bw.close();
             fw.close();
-            System.out.println("test2 done!");
+            log.info("test2 done!");
 
         } catch (Exception e) {
             // TODO: handle exception

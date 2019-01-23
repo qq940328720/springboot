@@ -11,5 +11,4 @@ Druid可以做什么？
 4) SQL执行日志，Druid提供了不同的LogFilter，能够支持Common-Logging、Log4j和JdkLog，你可以按需要选择相应的LogFilter，监控你应用的数据库访问情况。
 扩展JDBC，如果你要对JDBC层有编程的需求，可以通过Druid提供的Filter-Chain机制，很方便编写JDBC层的扩展插件。
 
-
 静态资源的映射路径，优先级顺序为：META-INF/resources > resources >static > public

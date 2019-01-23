@@ -16,7 +16,7 @@ public class ActionFilterConfig {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         ActionFilter actionFilter = new ActionFilter();
         registrationBean.setFilter(actionFilter);
-        List<String> urlPatterns = new ArrayList<String>();
+        List<String> urlPatterns = new ArrayList<>();
         urlPatterns.add("/test/**");
         registrationBean.setUrlPatterns(urlPatterns);
         return registrationBean;

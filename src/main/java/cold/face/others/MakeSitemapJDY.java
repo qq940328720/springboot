@@ -1,5 +1,8 @@
 package cold.face.others;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -9,6 +12,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MakeSitemapJDY {
+    
+    private static Logger log = LoggerFactory.getLogger(MakeSitemapJDY.class);
 
     public static void main(String[] args) {
         String website = "https://www.jdy.com/sitemap.xml";
@@ -215,9 +220,9 @@ public class MakeSitemapJDY {
             bw.write(content);
             bw.close();
             fw.close();
-            System.out.println(filePath + "---successful!");
+            log.info(filePath + "---successful!");
         } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage());
+            log.info(e.getLocalizedMessage());
         }
     }
 

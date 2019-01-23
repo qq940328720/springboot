@@ -1,8 +1,14 @@
 package cold.face.common;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Calendar;
 
 public class IdCardUtlis {
+
+    private static Logger log = LoggerFactory.getLogger(IdCardUtlis.class);
+
     /**
      * 中国公民身份证号码最小长度。
      */
@@ -72,7 +78,7 @@ public class IdCardUtlis {
      * 根据身份编号获取性别
      *
      * @param idCard 身份编号
-     * @return 性别(M-男，F-女，N-未知)
+     * @return 性别(M - 男 ， F - 女 ， N - 未知)
      */
     public static String getGenderByIdCard(String idCard) {
         String sGender = "未知";
@@ -99,11 +105,11 @@ public class IdCardUtlis {
                 w.setSex(sex);
                 int a = wcbxxservice.updatess(w);
                 if (a>0) {
-                    System.out.println("姓名" + w.getRname() + "身份证" + w.getIdcard() + "年龄:" + age + "性别:" + sex);
+                    log.info("姓名" + w.getRname() + "身份证" + w.getIdcard() + "年龄:" + age + "性别:" + sex);
                 }
             }
             cou++;
-            System.out.println(cou);
+            log.info(cou);
         }
         return "";
     }*/
@@ -112,16 +118,16 @@ public class IdCardUtlis {
     public static void main(String[] a) {
         String idcard = "460200199209275127";
         String sex = getGenderByIdCard(idcard);
-        System.out.println("性别:" + sex);
+        log.info("性别:" + sex);
         int age = getAgeByIdCard(idcard);
-        System.out.println("年龄:" + age);
+        log.info("年龄:" + age);
         Short nian = getYearByIdCard(idcard);
         Short yue = getMonthByIdCard(idcard);
         Short ri = getDateByIdCard(idcard);
         System.out.print(nian + "年" + yue + "月" + ri + "日");
 
         String sr = getBirthByIdCard(idcard);
-        System.out.println("生日:" + sr);
+        log.info("生日:" + sr);
     }
 
 }

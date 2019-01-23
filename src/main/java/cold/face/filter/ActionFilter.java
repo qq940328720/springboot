@@ -1,6 +1,8 @@
 package cold.face.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
@@ -13,15 +15,17 @@ import java.util.Map;
  * 过滤器
  */
 public class ActionFilter implements Filter {
+    
+    private Logger log = LoggerFactory.getLogger(ActionFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        System.out.println(">>>ActionFilter>>>>>>>init");
+        log.info(">>>ActionFilter>>>>>>>init");
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        System.out.println(">>>ActionFilter>>>>>>>doFilter");
+        log.info(">>>ActionFilter>>>>>>>doFilter");
         // 获取系统时间
         Calendar ca = Calendar.getInstance();
         int hour = ca.get(Calendar.HOUR_OF_DAY);
@@ -44,6 +48,6 @@ public class ActionFilter implements Filter {
 
     @Override
     public void destroy() {
-        System.out.println(">>>ActionFilter>>>>>>>destroy");
+        log.info(">>>ActionFilter>>>>>>>destroy");
     }
 }
