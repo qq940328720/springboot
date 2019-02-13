@@ -2,6 +2,7 @@ package cold.face.controller;
 
 import cold.face.facade.dto.response.ResponseDTO;
 import cold.face.facade.service.MyTestService;
+import cold.face.rabbitmq.Sender;
 import cold.face.schedule.Tasks;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,6 +31,9 @@ public class MyTestController {
 
     @Autowired
     private Tasks tasks;
+
+    @Autowired
+    private Sender sender;
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     @ApiOperation(value = "hello", notes = "welcom page")
@@ -149,5 +153,15 @@ public class MyTestController {
         //保存字符串
         stringRedisTemplate.opsForValue().set("test", "111");
         return "ok";
+    }
+
+    @RequestMapping(value = "/testRabbitMq", method = RequestMethod.GET)
+    @ResponseBody
+    public void testRabbitMq() {
+        for (int i = 0; i < 1000; i++) {
+            for (int j = 0; j < 1000; j++) {
+                sender.send();
+            }
+        }
     }
 }

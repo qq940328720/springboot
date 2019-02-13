@@ -26,7 +26,7 @@ public class ActionInterceptor implements HandlerInterceptor {
         Calendar ca = Calendar.getInstance();
         int hour = ca.get(Calendar.HOUR_OF_DAY);
         // 设置限制运行时间 0-4点
-        if (hour < 4) {
+        if (hour < 24) {
             return true;
         }
         return false;

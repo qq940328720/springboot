@@ -39,8 +39,7 @@ public class DruidConfiguration {
         filterRegistrationBean.addUrlPatterns("/*");
         //@WebInitParam(name="exclusions",value="*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*")//
         //忽略资源
-        filterRegistrationBean.addInitParameter("exclusions",
-                "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*");
+        filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*");
         return filterRegistrationBean;
     }
 }
