@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.util.concurrent.Future;
 
-@Controller
+@RestController
 @RequestMapping("/test")
 @Api(description = "测试接口")
 public class MyTestController {
@@ -64,7 +64,7 @@ public class MyTestController {
         return "hello spring boot!!!";
     }
 
-    @ResponseBody
+//    @ResponseBody
     @RequestMapping(value = "/get/v1-1/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "getNoodlesTypeByJDBCTmp", notes = "getNoodlesTypeByJDBCTmp")
     public ResponseDTO getNoodlesTypeByJDBCTmp(@PathVariable String id) {

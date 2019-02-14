@@ -11,15 +11,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-/**
- * @项目名称：spring-boot-jsp
- * @类名称：Swagger2Config
- * @类描述：Swagger2配置类
- * @创建人：wyait
- * @创建时间：2017年6月27日下午5:26:03
- * @version：
- */
-
 // 配置注解
 @Configuration
 // 自动配置Swagger2
