@@ -1,4 +1,4 @@
-package cold.face.test;
+package cold.face.others;
 
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
@@ -11,12 +11,12 @@ import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class mytest {
+public class SendDataToEasTest {
 
-    private static Logger log = LoggerFactory.getLogger(mytest.class);
+    private static Logger log = LoggerFactory.getLogger(SendDataToEasTest.class);
 
     public static void main(String[] args) {
-        int type = 1;
+        int type = 2;
         switch (type) {
             case 1:
                 sendRecieveBill();
@@ -181,7 +181,7 @@ public class mytest {
             call.setReturnType(org.apache.axis.encoding.XMLType.XSD_STRING);// 设置返回类型
             Object result = call.invoke(new String[]{request});
             // 给方法传递参数，并且调用方法
-            log.info("result is " + result);
+            log.info("result is " + result); 
         } catch (ServiceException e) {
             e.printStackTrace();
         } catch (RemoteException e) {
