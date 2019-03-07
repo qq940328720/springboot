@@ -2,10 +2,18 @@ package cold.face.others;
 
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
+import org.apache.axis.encoding.XMLType;
+import org.apache.axis.encoding.ser.BeanDeserializerFactory;
+import org.apache.axis.encoding.ser.BeanSerializerFactory;
+import org.apache.axis.message.MessageElement;
+import org.apache.axis.types.Schema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.namespace.QName;
+import javax.xml.rpc.ParameterMode;
 import javax.xml.rpc.ServiceException;
+import javax.xml.rpc.encoding.TypeMapping;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
@@ -31,14 +39,29 @@ public class SendDataToEasTest {
 
     private static void sendShouldRecieveBill() {
         try {
+
+            loginEAS();
+
             //产品类别传精斗云，对应编码	JDZBCPLB012
             //kdProductType 这个是产品类别字段
-            double rate = 0.06;
-            double money = 1;
-            double rateMoney = (money / (1 + rate)) * rate;
+//            double HSDJ = 1;
+//            BigDecimal SL = new BigDecimal("0.06");
+//            BigDecimal b_HSDJ = new BigDecimal(HSDJ);
+//            BigDecimal b_DJ = b_HSDJ.divide(SL.add(new BigDecimal("1")), 2, BigDecimal.ROUND_HALF_UP);//.setScale(2, BigDecimal.ROUND_HALF_UP);
+//            double DJ = b_DJ.doubleValue();
+//            double SE = b_HSDJ.subtract(b_DJ).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 
-            BigDecimal bg = new BigDecimal(rateMoney);
-            double f1 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+
+            double HSDJ = 1;
+            BigDecimal SL = new BigDecimal("0.06");
+            BigDecimal b_HSDJ = new BigDecimal(HSDJ);
+            BigDecimal b_DJ = b_HSDJ.divide(SL.add(new BigDecimal("1")), 2, BigDecimal.ROUND_HALF_UP);//.setScale(2, BigDecimal.ROUND_HALF_UP);
+            double DJ = HSDJ / 1.06;
+            double SE = DJ * 0.06;// b_HSDJ.subtract(b_DJ).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            HSDJ = DJ + SE;// b_HSDJ.subtract(b_DJ).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+
+//            double HSDJ_1 = 1;
+//            double DJ_1 = DJ;
 
             Date date = new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmssSSS");
@@ -46,9 +69,9 @@ public class SendDataToEasTest {
             SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
             //单头（billHead）
             String CU = "102SZQS";//控制单元
-            String creator = "YGJ";//创建人 JDDJ_jdy
+            String creator = "user";//创建人 JDDJ_jdy   YGJ
             String createTime = formatter1.format(date);//创建日期
-            String lastUpdateUser = "YGJ";//最后修改人 JDDJ_jdy
+            String lastUpdateUser = "YGJ";//最后修改人 JDDJ_jdy   YGJ
             String lastUpdateTime = createTime;//最后修改日期
             String number = "YGJ-" + formatter.format(date);//单据编码
             String bizDate = createTime;//业务日期
@@ -57,51 +80,53 @@ public class SendDataToEasTest {
             String asstActNumber = "30536010";//往来户编码(查数据库)
             String currency = "BB01";//编码（币别）
             String adminOrgUnit = "102SZQS.102SZQS";//部门
-            String person = "YGJ";//人员
+            String person = "MOPfxzy";//人员      --------------------
             double exchangeRate = 1;//汇率
-            double amount = 1;//应收金额(查数据库)
-            double amountLocal = amount;//应收本位币金额
+            double amount = HSDJ;//应收金额(查数据库)-------
+            double amountLocal = HSDJ;//应收本位币金额----------
             double unVerifyAmount = 0;//未结算金额
             double unVerifyAmountLocal = 0;//未结算金额本位币
             int sourceBillType = 2;//来源单据类型
             String bizType = "210";//业务类型
             String paymentType = "002";//付款方式
-            double totalTaxAmount = amount;//价税合计
-            double taxAmount = f1;//税额
+            double totalAmount = DJ;//金额合计---------
+            double totalTaxAmount = HSDJ;//价税合计--------
+            double taxAmount = SE;//税额------
             boolean redBlueType = false;//是否红字发票
             int billType = 101;//单据类型
             String description = "lijingtestordernum";//参考信息:预付单号(查数据库)
             String abstractName = "lijingtestordernum";//摘要:细类(查数据库)
             String sourceRemarks = "精斗云分销线下订货";//来源备注:精斗云分销线下订货
             double lastExhangeRate = 1;//最后调汇汇率
-            double totalAmount = amount;//金额合计
+
             //分录（billEntries）
             int seq = 1;//序列号
             String expenseItem = "001";//费用项目
-            double recievePayAmount = amount;//应收金额
-            double recievePayAmountLocal = amount;//应收金额本位币
+            double recievePayAmount = HSDJ;//应收金额-------
+            double recievePayAmountLocal = HSDJ;//应收金额本位币-----------
             double unVerifyAmount1 = 0;//未结算金额
             double unVerifyAmountLocal1 = 0;//未结算金额本位币
             double lockUnVerifyAmt = 0;//未锁定金额
             double lockUnVerifyAmtLocal = 0;//未锁定金额本位币
             int quantity = 1;//数量
-            double price = amount;//单价
-            double actualPrice = amount;//实际含税单价
-            double taxRate = 0.06;//税率:查数据库
-            double amount1 = amount;//金额
-            double amountLocal1 = amount;//金额本位币
+            double price = HSDJ/1.06;//单价-------------
+            double actualPrice = HSDJ;//实际含税单价-------------
+            double taxRate = 0.06 * 100;//税率:查数据库          -------------
+            double amount1 = DJ;//金额-------------
+
+            double amountLocal1 = DJ;//金额本位币-------------
             int unwriteOffBaseQty = 0;//未核销基本数量
-            double realPrice = amount;//实际单价
+            double realPrice = 0;//实际单价-------------
             String productName = "会计3.0多账套plus版";//产品名称
             String kdProductType = "JDZBCPLB012";//产品类别
             String measureUnit = "001";//计量单位
-            double localUnwriteOffAmount = amount;//未核销本位币金额
-            double taxPrice = amount;//含税单价
+            double localUnwriteOffAmount = HSDJ;//未核销本位币金额-------------
+            double taxPrice = HSDJ;//含税单价-------------
             //收款计划（receivePlans）
             int seq1 = 1;//序列号
             String receivePayDate = createTime;//应收应付日期
-            double receivePayAmount = amount;//应收应付金额
-            double receivePayAmountLocal = amount;//应收应付金额本位币
+            double receivePayAmount = HSDJ;//应收应付金额-------------
+            double receivePayAmountLocal = HSDJ;//应收应付金额本位币-------------
 
             String request = "<OtherBill>\n" +
                     "\t<billHead>\n" +
@@ -170,7 +195,7 @@ public class SendDataToEasTest {
                     "</ReceivePlan>\n" +
                     "</receivePlans>\n" +
                     "</OtherBill>\n";
-            String endpoint = "http://192.168.200.101:7088/ormrpc/services/WSOtherBillFacade?wsdl";
+            String endpoint = "http://192.168.200.101:7888/ormrpc/services/WSOtherBillFacade?wsdl";
             // 直接引用远程的wsdl文件
             // 以下都是套路
             Service service = new Service();
@@ -178,10 +203,10 @@ public class SendDataToEasTest {
             call.setTargetEndpointAddress(endpoint);
             call.setOperationName("submit");// WSDL里面描述的接口名称
             call.addParameter("xmlData", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);// 接口的参数
-            call.setReturnType(org.apache.axis.encoding.XMLType.XSD_STRING);// 设置返回类型
+//            call.setReturnType(org.apache.axis.encoding.XMLType.XSD_STRING);// 设置返回类型
             Object result = call.invoke(new String[]{request});
             // 给方法传递参数，并且调用方法
-            log.info("result is " + result); 
+            log.info("result is " + result);
         } catch (ServiceException e) {
             e.printStackTrace();
         } catch (RemoteException e) {
@@ -190,15 +215,87 @@ public class SendDataToEasTest {
     }
 
     private static void sendRecieveBill() {
+
+        loginEAS();
+
+//        GetSubscriptionReq input = new GetSubscriptionReq();
+//        GetSubscriptionRsp output = null;
+//        Service service = new Service();
+//        Call call = (Call)service.createCall();
+//        call.setTimeout(new Integer(20000));
+//        org.apache.axis.description.ationDesc oper;
+//        org.apache.axis.description.ParameterDesc param;
+//        oper = new org.apache.axis.description.OperationDesc();
+//        oper.setName("getSubscription");
+//        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://portalEngine.ismp.chinatelecom.com", "getSubscriptionReq"),
+//                org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://req.portalEngine.ismp.chinatelecom.com", "GetSubscriptionReq"),
+//                GetSubscriptionReq.class, false, false);
+//        oper.addParameter(param);
+//        oper.setReturnType(new javax.xml.namespace.QName("http://rsp.portalEngine.ismp.chinatelecom.com", "GetSubscriptionRsp"));
+//        oper.setReturnClass(GetSubscriptionRsp.class);
+//        oper.setReturnQName(new javax.xml.namespace.QName("http://portalEngine.ismp.chinatelecom.com", "getSubscriptionRsp"));
+//        oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
+//        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+//        call.setOperation(oper);
+//        call.setOperationName("getSubscription");
+//        call.setTargetEndpointAddress("http://"+service_addr+"/PortalEngineService");
+//
+//        try{
+//            output = (GetSubscriptionRsp)call.invoke(new Object[]{input});//调用webservices服务
+//        }catch(Exception e)
+//        {
+//            throw new ServantException("core_invoke_webservices_failure",e.getMessage());
+//        }
+//
+//        TypeMappingRegistry registry = service.getTypeMappingRegistry();
+//        TypeMapping mapping = registry.createTypeMapping();
+//        registerBeanMapping(mapping, GetSubscriptionReq.class,new javax.xml.namespace. QName("http://req.portalEngine.ismp.chinatelecom.com", "GetSubscriptionReq"));
+//        registerBeanMapping(mapping, GetSubscriptionRsp.class,new javax.xml.namespace. QName("http://rsp.portalEngine.ismp.chinatelecom.com", "GetSubscriptionRsp"));
+//        registry.register("http://schemas.xmlsoap.org/soap/encoding/", mapping);
+
+//        try {
+//            LoginRequest input = new LoginRequest();
+//            LoginResponse output = null;
+//            Service service = new Service();
+//            Call call = (Call) service.createCall();
+//            call.setTimeout(new Integer(20000));
+//            org.apache.axis.description.OperationDesc oper;
+//            org.apache.axis.description.ParameterDesc param;
+//            oper = new org.apache.axis.description.OperationDesc();
+//            oper.setName("login");
+//            param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://login.webservice.bos.kingdee.com", "LoginRequest"),
+//                    org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://login.webservice.bos.kingdee.com", "LoginRequest"),
+//                    LoginRequest.class, false, false);
+//
+//            TypeMappingRegistry registry = service.getTypeMappingRegistry();
+//            TypeMapping mapping = registry.createTypeMapping();
+//            registerBeanMapping(mapping, LoginRequest.class, new javax.xml.namespace.QName("http://login.webservice.bos.kingdee.com", "LoginRequest"));
+//            registerBeanMapping(mapping, LoginResponse.class, new javax.xml.namespace.QName("http://192.168.200.101:7888/ormrpc/services/EASLogin", "LoginResponse"));
+//            registry.register("http://schemas.xmlsoap.org/soap/encoding/", mapping);
+//
+//            oper.addParameter(param);
+//            oper.setReturnType(new javax.xml.namespace.QName("http://login.webservice.bos.kingdee.com", "LoginRequest"));
+//            oper.setReturnClass(LoginResponse.class);
+//            oper.setReturnQName(new javax.xml.namespace.QName("http://192.168.200.101:7888/ormrpc/services/EASLogin", "LoginResponse"));
+//            oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
+//            oper.setUse(org.apache.axis.constants.Use.LITERAL);
+//            call.setOperation(oper);
+//            call.setOperationName("login");
+//            call.setTargetEndpointAddress(endpoint);
+//            output = (LoginResponse) call.invoke(new Object[]{input});//调用webservices服务
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
         try {
             Date date = new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmssSSS");
             SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             //单头（billHead）
             String cu = "102SZQS";//控制单元
-            String creator = "YGJ";//创建人 JDDJ_jdy
+            String creator = "YGJ";//创建人 JDDJ_jdy    YGJ
             String createtime = formatter1.format(date);//创建日期
-            String lastupdateuser = "YGJ";//最后修改人 JDDJ_jdy
+            String lastupdateuser = "YGJ";//最后修改人 JDDJ_jdy    YGJ
             String lastupdatetime = createtime;//最后修改日期
             String number = "YGJ-" + formatter.format(date);//单据编码
             String bizdate = createtime;//业务日期
@@ -258,7 +355,7 @@ public class SendDataToEasTest {
                     "</entry>\n" +
                     "</billEntries>\n" +
                     "</ReceivingBill>\n";
-            String endpoint = "http://192.168.200.101:7088/ormrpc/services/WSReceiveBillSubmitFacade?wsdl";
+            String endpoint = "http://192.168.200.101:7888/ormrpc/services/WSReceiveBillSubmitFacade?wsdl";
             // 直接引用远程的wsdl文件
             // 以下都是套路
             Service service = new Service();
@@ -266,12 +363,168 @@ public class SendDataToEasTest {
             call.setTargetEndpointAddress(endpoint);
             call.setOperationName("submit");// WSDL里面描述的接口名称
             call.addParameter("xmlData", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);// 接口的参数
-            call.setReturnType(org.apache.axis.encoding.XMLType.XSD_STRING);// 设置返回类型
+//            call.setReturnType(org.apache.axis.encoding.XMLType.XSD_STRING);// 设置返回类型
             Object result = call.invoke(new String[]{request});
             // 给方法传递参数，并且调用方法
             log.info("result is " + result);
+            log.info("result is " + result);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void loginEAS() {
+        try {
+            String endpoint = "http://192.168.200.101:7888/ormrpc/services/EASLogin?wsdl";
+
+            String userName = "user";//YGJ   
+            String password = "kingdee2018";//123123
+            String slnName = "eas";
+            String dcName = "EPP001";
+            String language = "L2";
+            int dbType = 2;//数据中心类型
+            
+
+            Service service = new Service();
+            Call call = (Call) service.createCall();
+            call.setTargetEndpointAddress(endpoint);
+            call.setOperationName(new QName("http://login.webservice.bos.kingdee.com", "login"));
+            call.addParameter("userName", XMLType.XSD_STRING, ParameterMode.IN);
+            call.addParameter("password", XMLType.XSD_STRING, ParameterMode.IN);
+            call.addParameter("slnName", XMLType.XSD_STRING, ParameterMode.IN);
+            call.addParameter("dcName", XMLType.XSD_STRING, ParameterMode.IN);
+            call.addParameter("language", XMLType.XSD_STRING, ParameterMode.IN);
+            call.addParameter("dbType", XMLType.XSD_INT, ParameterMode.IN);
+            call.setEncodingStyle("http://schemas.xmlsoap.org/soap/encoding/");
+            call.setReturnType(XMLType.XSD_SCHEMA);
+            Object o = call.invoke(new Object[]{"user", "kingdee2018", "eas", "EPP001", "L2", 2});
+            Schema schema = (Schema) o;
+            MessageElement[] messageElements = schema.get_any();
+            StringBuffer str = new StringBuffer("");
+            for (MessageElement m : messageElements) {
+                str.append(m.toString());
+            }
+            System.out.println(str);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void registerBeanMapping(TypeMapping mapping, Class type, javax.xml.namespace.QName qname) {
+        mapping.register(type, qname, new BeanSerializerFactory(type, qname), new BeanDeserializerFactory(type, qname));
+    }
+
+    public static class LoginRequest {
+        String userName = "user";
+        String password = "kingdee2018";
+        String slnName = "eas";
+        String dcName = "EPP001";
+        String language = "L2";
+        int dbType = 2;//数据中心类型
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public String getSlnName() {
+            return slnName;
+        }
+
+        public void setSlnName(String slnName) {
+            this.slnName = slnName;
+        }
+
+        public String getDcName() {
+            return dcName;
+        }
+
+        public void setDcName(String dcName) {
+            this.dcName = dcName;
+        }
+
+        public String getLanguage() {
+            return language;
+        }
+
+        public void setLanguage(String language) {
+            this.language = language;
+        }
+
+        public int getDbType() {
+            return dbType;
+        }
+
+        public void setDbType(int dbType) {
+            this.dbType = dbType;
+        }
+    }
+
+    public static class LoginResponse {
+        String userName;
+        String password;
+        String slnName;
+        String dcName;
+        String language;
+        String dbType;
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public String getSlnName() {
+            return slnName;
+        }
+
+        public void setSlnName(String slnName) {
+            this.slnName = slnName;
+        }
+
+        public String getDcName() {
+            return dcName;
+        }
+
+        public void setDcName(String dcName) {
+            this.dcName = dcName;
+        }
+
+        public String getLanguage() {
+            return language;
+        }
+
+        public void setLanguage(String language) {
+            this.language = language;
+        }
+
+        public String getDbType() {
+            return dbType;
+        }
+
+        public void setDbType(String dbType) {
+            this.dbType = dbType;
         }
     }
 }
