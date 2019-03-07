@@ -56,9 +56,9 @@ public class SendDataToEasTest {
             BigDecimal SL = new BigDecimal("0.06");
             BigDecimal b_HSDJ = new BigDecimal(HSDJ);
             BigDecimal b_DJ = b_HSDJ.divide(SL.add(new BigDecimal("1")), 2, BigDecimal.ROUND_HALF_UP);//.setScale(2, BigDecimal.ROUND_HALF_UP);
-            double DJ = HSDJ / 1.06;
-            double SE = DJ * 0.06;// b_HSDJ.subtract(b_DJ).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-            HSDJ = DJ + SE;// b_HSDJ.subtract(b_DJ).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            double DJ = b_DJ.doubleValue();
+            double SE = b_HSDJ.subtract(b_DJ).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+//            HSDJ = DJ + SE;// b_HSDJ.subtract(b_DJ).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 
 //            double HSDJ_1 = 1;
 //            double DJ_1 = DJ;
@@ -84,14 +84,13 @@ public class SendDataToEasTest {
             double exchangeRate = 1;//汇率
             double amount = HSDJ;//应收金额(查数据库)-------
             double amountLocal = HSDJ;//应收本位币金额----------
-            double unVerifyAmount = 0;//未结算金额
-            double unVerifyAmountLocal = 0;//未结算金额本位币
+            double unVerifyAmount = HSDJ;//未结算金额
+            double unVerifyAmountLocal = HSDJ;//未结算金额本位币
             int sourceBillType = 2;//来源单据类型
             String bizType = "210";//业务类型
             String paymentType = "002";//付款方式
             double totalAmount = DJ;//金额合计---------
             double totalTaxAmount = HSDJ;//价税合计--------
-            double taxAmount = SE;//税额------
             boolean redBlueType = false;//是否红字发票
             int billType = 101;//单据类型
             String description = "lijingtestordernum";//参考信息:预付单号(查数据库)
@@ -101,15 +100,16 @@ public class SendDataToEasTest {
 
             //分录（billEntries）
             int seq = 1;//序列号
+            double taxAmount = SE;//税额------
             String expenseItem = "001";//费用项目
             double recievePayAmount = HSDJ;//应收金额-------
             double recievePayAmountLocal = HSDJ;//应收金额本位币-----------
-            double unVerifyAmount1 = 0;//未结算金额
-            double unVerifyAmountLocal1 = 0;//未结算金额本位币
+            double unVerifyAmount1 = HSDJ;//未结算金额
+            double unVerifyAmountLocal1 = HSDJ;//未结算金额本位币
             double lockUnVerifyAmt = 0;//未锁定金额
             double lockUnVerifyAmtLocal = 0;//未锁定金额本位币
             int quantity = 1;//数量
-            double price = HSDJ/1.06;//单价-------------
+            double price = DJ;//单价-------------
             double actualPrice = HSDJ;//实际含税单价-------------
             double taxRate = 0.06 * 100;//税率:查数据库          -------------
             double amount1 = DJ;//金额-------------
@@ -152,7 +152,6 @@ public class SendDataToEasTest {
                     "\t\t<bizType>" + bizType + "</bizType>\n" +
                     "\t\t<paymentType>" + paymentType + "</paymentType>\n" +
                     "\t\t<totalTaxAmount>" + totalTaxAmount + "</totalTaxAmount>\n" +
-                    "\t\t<taxAmount>" + taxAmount + "</taxAmount>\n" +
                     "\t\t<redBlueType>" + redBlueType + "</redBlueType>\n" +
                     "\t\t<billType>" + billType + "</billType>\n" +
                     "\t\t<description>" + description + "</description>\n" +
@@ -164,6 +163,7 @@ public class SendDataToEasTest {
                     "<billEntries>\n" +
                     "\t<entry>\n" +
                     "\t<seq>" + seq + "</seq>\n" +
+                    "\t\t<taxAmount>" + taxAmount + "</taxAmount>\n" +
                     "\t<expenseItem>" + expenseItem + "</expenseItem>\n" +
                     "\t<recievePayAmount>" + recievePayAmount + "</recievePayAmount>\n" +
                     "\t<recievePayAmountLocal>" + recievePayAmountLocal + "</recievePayAmountLocal>\n" +
