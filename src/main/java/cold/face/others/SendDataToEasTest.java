@@ -113,7 +113,6 @@ public class SendDataToEasTest {
             double actualPrice = HSDJ;//实际含税单价-------------
             double taxRate = 0.06 * 100;//税率:查数据库          -------------
             double amount1 = DJ;//金额-------------
-
             double amountLocal1 = DJ;//金额本位币-------------
             int unwriteOffBaseQty = 0;//未核销基本数量
             double realPrice = 0;//实际单价-------------
