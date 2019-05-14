@@ -246,6 +246,11 @@
             <artifactId>wsdl4j</artifactId>
             <version>1.6.1</version>
         </dependency>
+        <!--测试包-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
