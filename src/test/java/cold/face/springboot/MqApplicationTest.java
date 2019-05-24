@@ -1,6 +1,6 @@
 package cold.face.springboot;
 
-import cold.face.common.MyZipUtils;
+import cold.face.common.utils.MyZipUtils;
 import cold.face.rabbitmq.Sender;
 import org.junit.Test;
 import org.junit.runner.RunWith;

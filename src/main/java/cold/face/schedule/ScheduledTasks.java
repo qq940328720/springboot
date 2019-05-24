@@ -1,6 +1,6 @@
 package cold.face.schedule;
 
-import cold.face.common.DateUtils;
+import cold.face.common.utils.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
