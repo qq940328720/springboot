@@ -15,7 +15,7 @@ public class EnumSerializer extends JsonSerializer<BaseEnum> {
             jgen.writeFieldName("value");
             jgen.writeObject(value.getValue());
             jgen.writeFieldName("enumName");
-            jgen.writeObject(value.getEnumName());
+            jgen.writeObject(value.getName());
             jgen.writeFieldName("displayName");
             jgen.writeString(value.getDisplayName());
             jgen.writeEndObject();

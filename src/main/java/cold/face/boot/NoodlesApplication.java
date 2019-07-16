@@ -1,6 +1,6 @@
 package cold.face.boot;
 
-import org.mybatis.spring.annotation.MapperScan;
+//import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration//这是一个配置Spring的配置类
 @SpringBootApplication(scanBasePackages = "cold.face")//@SpringBootApplication：Spring Boot项目的核心注解，主要目的是开启自动配置。
-@MapperScan(basePackages = "cold.face.dal.dao")
+//@MapperScan(basePackages = "cold.face.dal.dao")
 //@EnableScheduling//开启定时任务
 @EnableAsync//开启异步调用
 public class NoodlesApplication {

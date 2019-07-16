@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum MqReciverTypeEnum implements BaseEnum<MqReciverTypeEnum, Integer> {
-    
+
     MQ_HELLO(1, "hello"),
-    MQ_NOODLE_TYPE(2, "noodleType"),
-    MQ_NOODLE(3, "noodle");
+    MQ_NOODLES_TYPE(2, "noodlesType"),
+    MQ_NOODLES(3, "noodles");
 
     private final int value;
     private final String displayName;
@@ -37,7 +37,7 @@ public enum MqReciverTypeEnum implements BaseEnum<MqReciverTypeEnum, Integer> {
     }
 
     @Override
-    public String getEnumName() {
+    public String getName() {
         return this.name();
     }
 

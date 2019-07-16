@@ -6,6 +6,7 @@ import org.apache.axis.encoding.XMLType;
 import org.apache.axis.encoding.ser.BeanDeserializerFactory;
 import org.apache.axis.encoding.ser.BeanSerializerFactory;
 import org.apache.axis.message.MessageElement;
+import org.apache.axis.message.SOAPHeaderElement;
 import org.apache.axis.types.Schema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,12 +25,15 @@ public class SendDataToEasTest {
     private static Logger log = LoggerFactory.getLogger(SendDataToEasTest.class);
 
     public static void main(String[] args) {
-        int type = 2;
+        int type = 3;
         switch (type) {
             case 1:
                 sendRecieveBill();
                 break;
             case 2:
+                sendShouldRecieveBill();
+                break;
+            case 3:
                 sendShouldRecieveBill();
                 break;
             default:
@@ -40,7 +44,6 @@ public class SendDataToEasTest {
     private static void sendShouldRecieveBill() {
         try {
 
-            loginEAS();
 
             //产品类别传精斗云，对应编码	JDZBCPLB012
             //kdProductType 这个是产品类别字段
@@ -194,14 +197,22 @@ public class SendDataToEasTest {
                     "</ReceivePlan>\n" +
                     "</receivePlans>\n" +
                     "</OtherBill>\n";
-            String endpoint = "http://192.168.200.101:7888/ormrpc/services/WSOtherBillFacade?wsdl";
+//            String endpoint = "http://192.168.200.101:7888/ormrpc/services/WSOtherBillFacade?wsdl";
+            String endpoint = "http://kdeas.kingdee.com:7888/ormrpc/services/WSOtherBillFacade?wsdl";
             // 直接引用远程的wsdl文件
             // 以下都是套路
             Service service = new Service();
             Call call = (Call) service.createCall();
+
+            String sessionId = loginEAS(call);
+            call.clearOperation();
             call.setTargetEndpointAddress(endpoint);
+            call.setMaintainSession(true);
             call.setOperationName("submit");// WSDL里面描述的接口名称
             call.addParameter("xmlData", org.apache.axis.encoding.XMLType.XSD_STRING, javax.xml.rpc.ParameterMode.IN);// 接口的参数
+            //请求头设置sessionId
+            SOAPHeaderElement oHeaderElement = new SOAPHeaderElement("http://login.webservice.bos.kingdee.com", "SessionId", sessionId);
+            call.addHeader(oHeaderElement);
 //            call.setReturnType(org.apache.axis.encoding.XMLType.XSD_STRING);// 设置返回类型
             Object result = call.invoke(new String[]{request});
             // 给方法传递参数，并且调用方法
@@ -215,7 +226,7 @@ public class SendDataToEasTest {
 
     private static void sendRecieveBill() {
 
-        loginEAS();
+//        loginEAS();
 
 //        GetSubscriptionReq input = new GetSubscriptionReq();
 //        GetSubscriptionRsp output = null;
@@ -372,22 +383,30 @@ public class SendDataToEasTest {
         }
     }
 
-    private static void loginEAS() {
+    private static String loginEAS( Call call) {
         try {
-            String endpoint = "http://192.168.200.101:7888/ormrpc/services/EASLogin?wsdl";
+            String sessionId = "";
 
-            String userName = "user";//YGJ   
-            String password = "kingdee2018";//123123
+//            String endpoint = "http://192.168.200.101:7888/ormrpc/services/EASLogin?wsdl";
+            String endpoint = "http://kdeas.kingdee.com:7888/ormrpc/services/EASLogin?wsdl";
+
+//            String userName = "user";//YGJ   
+//            String password = "kingdee2018";//123123
+//            String slnName = "eas";
+//            String dcName = "EPP001";
+//            String language = "L2";
+//            int dbType = 2;//数据中心类型
+
+            String userName = "sys_ygj";
+            String password = "kdYGJ$2019";
             String slnName = "eas";
-            String dcName = "EPP001";
+            String dcName = "EAS001";
             String language = "L2";
             int dbType = 2;//数据中心类型
-            
 
-            Service service = new Service();
-            Call call = (Call) service.createCall();
             call.setTargetEndpointAddress(endpoint);
             call.setOperationName(new QName("http://login.webservice.bos.kingdee.com", "login"));
+            call.setMaintainSession(true);
             call.addParameter("userName", XMLType.XSD_STRING, ParameterMode.IN);
             call.addParameter("password", XMLType.XSD_STRING, ParameterMode.IN);
             call.addParameter("slnName", XMLType.XSD_STRING, ParameterMode.IN);
@@ -396,17 +415,21 @@ public class SendDataToEasTest {
             call.addParameter("dbType", XMLType.XSD_INT, ParameterMode.IN);
             call.setEncodingStyle("http://schemas.xmlsoap.org/soap/encoding/");
             call.setReturnType(XMLType.XSD_SCHEMA);
-            Object o = call.invoke(new Object[]{"user", "kingdee2018", "eas", "EPP001", "L2", 2});
+            Object o = call.invoke(new Object[]{userName, password, slnName, dcName, language, dbType});
             Schema schema = (Schema) o;
             MessageElement[] messageElements = schema.get_any();
-            StringBuffer str = new StringBuffer("");
             for (MessageElement m : messageElements) {
-                str.append(m.toString());
+                if (m.getName().equals("sessionId")) {
+                    sessionId = m.getValue();
+                    break;
+                }
             }
-            System.out.println(str);
+            System.out.println("sessionId：" + sessionId);
+            return sessionId;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return "";
     }
 
     public static void registerBeanMapping(TypeMapping mapping, Class type, javax.xml.namespace.QName qname) {
