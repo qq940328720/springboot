@@ -13,4 +13,20 @@ public class MyTestThread extends Thread {
             }
         }
     }
+
+    public static void main(String[] args) {
+        StringBuilder builder = new StringBuilder();
+        String a = null;
+        builder.append("123");
+        builder.append(a);
+        builder.toString();//132null
+
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(123);
+        buffer.append(a);//123null
+
+        String b = "123";
+        b = a + b;
+    }
+
 }
