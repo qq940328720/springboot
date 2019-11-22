@@ -17,7 +17,7 @@ import java.util.UUID;
 
 
 public class InvokeSample2 {
-    //	private static String YOUSHANG_API_URL = "http://agent.youshang.com/federation/commonservice/servicePortal.do?shortName=aexjy";
+    //  private static String YOUSHANG_API_URL = "http://agent.youshang.com/federation/commonservice/servicePortal.do?shortName=pntest";
     private static String YOUSHANG_API_URL = "http://agent.youshang.com/federation/commonservice/servicePortal.do?shortName=testto";
 //	private static String YOUSHANG_API_URL = "http://agent.youshang.com/federation/commonservice/servicePortal.do?shortName=testone";
 //	private static String YOUSHANG_API_URL = "http://agent.youshang.com/federation/commonservice/servicePortal.do?shortName=pntest";
@@ -30,7 +30,7 @@ public class InvokeSample2 {
             System.out.println("uuid:" + uuid);
             uuid = URLEncoder.encode(uuid, "utf-8");
             System.out.println("uuid:" + uuid);
-            
+
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -83,7 +83,7 @@ public class InvokeSample2 {
 //		System.out.println("addService:" + strTest);
         String url = encrypt(strTest, pwd);
         System.out.println(url);
-        execute(url);
+//        execute(url);
     }
 
     private static void addService(String userName, String userType, String productType, String IISPOrderId, String pwd, String buyerType) throws UnsupportedEncodingException {
@@ -179,6 +179,7 @@ public class InvokeSample2 {
         //UrlEncode
         strEnXml = URLEncoder.encode(strEnXml, "UTF-8");
         String URL = YOUSHANG_API_URL + "&iv=" + iv + "&cipherCode=" + strEnXml;
+        System.out.println(URL);
         return URL;
 
     }
@@ -207,9 +208,9 @@ public class InvokeSample2 {
         sbXml.append("<request>");
         sbXml.append("<type>userSync</type>");
         sbXml.append("<data>");
-        sbXml.append("<attr name=\"userAccount\">18692641842</attr>");
+        sbXml.append("<attr name=\"userAccount\">yljusertest</attr>");
         sbXml.append("<attr name=\"email\"></attr>");
-        sbXml.append("<attr name=\"mobile\">15823202203</attr>");
+        sbXml.append("<attr name=\"mobile\">18629679247</attr>");
         sbXml.append("<attr name=\"phone\"></attr>");
         sbXml.append("</data>");
         sbXml.append("</request>");
@@ -223,10 +224,10 @@ public class InvokeSample2 {
         sbXml.append("<type>corporationBinding</type>");
         sbXml.append("<data>");
         sbXml.append("<attr name=\"corpAccount\">" + corpAccount + "</attr>");
-        sbXml.append("<attr name=\"corpName\">测试公司" + corpAccount + "</attr>");
-        sbXml.append("<attr name=\"corpNickName\">测试公司</attr>");
-        sbXml.append("<attr name=\"corpPhone\">hedong1012</attr>");
-        sbXml.append("<attr name=\"corpMobile\">18325296018</attr>");
+        sbXml.append("<attr name=\"corpName\">ylj测试公司" + corpAccount + "</attr>");
+        sbXml.append("<attr name=\"corpNickName\">ylj测试公司</attr>");
+        sbXml.append("<attr name=\"corpPhone\">18145647897</attr>");
+        sbXml.append("<attr name=\"corpMobile\">18145647897</attr>");
         sbXml.append("</data>");
         sbXml.append("</request>");
         return sbXml.toString();
@@ -254,20 +255,20 @@ public class InvokeSample2 {
         sbXml.append("<data>");
         sbXml.append("<attr name=\"userAccount\">" + username + "</attr>");
         sbXml.append("<attr name=\"time\">" + System.currentTimeMillis() + "</attr>");
-        sbXml.append("<attr name=\"productType\">" + productTypeId + "</attr>");
-        sbXml.append("<attr name=\"userType\">" + 2 + "</attr>");
-        if (serviceId != 0) {
-            sbXml.append("<attr name=\"serviceId\">" + serviceId + "</attr>");
-        }
-        sbXml.append("<attr name=\"from\">" + from + "</attr>");
-        if (from.equals("mobile")) {
-            sbXml.append("<attr name=\"page\">mobile</attr>");
-        }
-        sbXml.append("<attr name=\"userType2\">" + 2 + "</attr>");
-        sbXml.append("<attr name=\"userType3\">" + 2 + "</attr>");
-        sbXml.append("<attr name=\"userType4\">" + 2 + "</attr>");
-        sbXml.append("<attr name=\"userType5\">" + 2 + "</attr>");
-        sbXml.append("<attr name=\"userType6\">" + 2 + "</attr>");
+//        sbXml.append("<attr name=\"productType\">" + productTypeId + "</attr>");
+//        sbXml.append("<attr name=\"userType\">" + 2 + "</attr>");
+//        if (serviceId != 0) {
+//            sbXml.append("<attr name=\"serviceId\">" + serviceId + "</attr>");
+//        }
+//        sbXml.append("<attr name=\"from\">" + from + "</attr>");
+//        if (from.equals("mobile")) {
+//            sbXml.append("<attr name=\"page\">mobile</attr>");
+//        }
+//        sbXml.append("<attr name=\"userType2\">" + 2 + "</attr>");
+//        sbXml.append("<attr name=\"userType3\">" + 2 + "</attr>");
+//        sbXml.append("<attr name=\"userType4\">" + 2 + "</attr>");
+//        sbXml.append("<attr name=\"userType5\">" + 2 + "</attr>");
+//        sbXml.append("<attr name=\"userType6\">" + 2 + "</attr>");
         sbXml.append("</data>");
         sbXml.append("</request>");
         System.out.println(sbXml.toString());
@@ -284,13 +285,27 @@ public class InvokeSample2 {
         sbXml.append("<attr name=\"userType\">" + userType + "</attr>");
         sbXml.append("<attr name=\"productType\">" + productType + "</attr>");
         sbXml.append("<attr name=\"IISPOrderId\">" + "201212270000" + "</attr>");
-        sbXml.append("<attr name=\"maxUser\">" + "2" + "</attr>");
-        sbXml.append("<attr name=\"serviceId\">" + "798695119392" + "</attr>");
+        sbXml.append("<attr name=\"maxUser\">" + "1" + "</attr>");
+//        sbXml.append("<attr name=\"serviceId\">" + "798695119392" + "</attr>");
         sbXml.append("<attr name=\"accountNum\">" + "10" + "</attr>");
         sbXml.append("</data>");
         sbXml.append("</request>");
         System.out.println(sbXml.toString());
         return sbXml.toString();
+//        sbXml.append("<attr name=\"userAccount\">" + userAccount + "</attr>");
+//        sbXml.append("<attr name=\"userType\">" + userType + "</attr>");
+//        sbXml.append("<attr name=\"productType\">" + productType + "</attr>");
+//        sbXml.append("<attr name=\"IISPOrderId\">" + IISPOrderId + "</attr>");
+//        sbXml.append("<attr name=\"language\">" + 1 + "</attr>");
+//        sbXml.append("<attr name=\"accountNum\">" + 1 + "</attr>");
+//        sbXml.append("<attr name=\"maxUser\">" + "1" + "</attr>");
+//        sbXml.append("<attr name=\"buyYear\">" + "1" + "</attr>");
+//        sbXml.append("<attr name=\"timeUnit\">" + 2 + "</attr>");
+//        sbXml.append("<attr name=\"currency\">" + 1 + "</attr>");
+////		sbXml.append("<attr name=\"createAccountSet\">" + "true" + "</attr>");
+////		sbXml.append("<attr name=\"accountSetCreator\">" + "17254320006" + "</attr>");
+////		sbXml.append("<attr name=\"requestId\">requestId09c2</attr>");
+////		sbXml.append("<attr name=\"siNo\">siNo09c2</attr>");
     }
 
     private static String getStopServiceXml(String username, String userType, String productType, String IISPOrderId, String pwd) {
@@ -337,8 +352,9 @@ public class InvokeSample2 {
         sbXml.append("<attr name=\"IISPOrderId\">" + IISPOrderId + "</attr>");
         sbXml.append("<attr name=\"language\">" + 1 + "</attr>");
         sbXml.append("<attr name=\"accountNum\">" + 1 + "</attr>");
-        sbXml.append("<attr name=\"maxUser\">" + "1" + "</attr>");
+        sbXml.append("<attr name=\"maxUser\">" + "2" + "</attr>");
         sbXml.append("<attr name=\"buyYear\">" + "1" + "</attr>");
+        sbXml.append("<attr name=\"timeUnit\">" + 2 + "</attr>");
         sbXml.append("<attr name=\"currency\">" + 1 + "</attr>");
 //		sbXml.append("<attr name=\"createAccountSet\">" + "true" + "</attr>");
 //		sbXml.append("<attr name=\"accountSetCreator\">" + "17254320006" + "</attr>");
@@ -436,12 +452,12 @@ public class InvokeSample2 {
 
     public static void main(String arg[]) throws Exception {
         //用户同步接口，将贵公司的用户同步成为金蝶友商网的用户
-        String userName = "17254321011";//u09061548@testto  u09041412@testto
+        String userName_inner = "17254321011";//u09061548@testto  u09041412@testto
 //		String userName = "kingdeetestloginrui";//u09061548@testto  u09041412@testto
 //		String userName = "pntestcrs2";
 //		String userName = "10154795";
 //		String userName = "20190823_pntest_2";
-        String pwd = "6e323963fbc04500918e8d1174610dd8";//testto 内网
+        String pwd_inner = "6e323963fbc04500918e8d1174610dd8";//testto 内网
 
 //		String pwd = "2506ed69087643b3aa23b9bdd629347b";//海尔内网
 
@@ -465,7 +481,7 @@ public class InvokeSample2 {
         //1、同步用户接口
 //		userSync(userName, pwd);
 
-		String corpAccount = "c17254320006";
+        String corpAccount = "c17254320006";
 //        String corpAccount = "c20190903_testto_1";
 //		String corpAccount = "c20190823_pntest_1";
 //		corpSync(corpAccount, pwd);
@@ -502,7 +518,7 @@ public class InvokeSample2 {
 //        String content = encrypt(JSONObject.toJSONString(fs), pwd);
 //
 //        System.out.println("content:" + content);
-        
+
 //		stopService(corpAccount, "1", "100852", busNo, pwd);
 //		reopenService(corpAccount, "1", "100942", busNo, pwd);
 
@@ -523,6 +539,8 @@ public class InvokeSample2 {
 //		System.out.println(plainText);
 
         //单点登录接口
+//		userLogin("u2019101803", 0L , 0L, pwd, "172.20.11.206");
+//		userLogin("lcb_user1", 0L , 0L, "fc457216-a9a7-4172-9d10-4c4f5fa9a27b", "172.20.11.206");
 //		userLogin(userName, 8 , 7989157792717904L, pwd, "172.20.11.206");
 //		userLogin(userName, 17 , 0L, pwd, "mobile");
 //		userLogin(userName, 17 , 79869263934L, pwd, "mobile");
@@ -554,14 +572,170 @@ public class InvokeSample2 {
 //        
 //        String xml="<?xml version=\"1.0\" encoding = \"utf-8\"?><request><type>corporationBinding</type><data><attr name=\"corpAccount\">kzxt0001</attr><attr name=\"corpName\">深圳快学教育有限公司</attr><attr name=\"corpNickName\"></attr><attr name=\"corpPhone\">0755-17666147893</attr><attr name=\"corpMobile\">17727604007</attr><attr name=\"corpLinkman\"></attr><attr name=\"corpFax\"></attr><attr name=\"corpEmail\"></attr><attr name=\"corpAddress\"></attr></data>";
 //        String ssiv="w3r6ah5xkscidv89";
-        String password="fc457216-a9a7-4172-9d10-4c4f5fa9a27b";
+        String password_outer = "fc457216-a9a7-4172-9d10-4c4f5fa9a27b";
 
 //        String result = CryptographUtil.AESEncrypt(xml, ssiv, password);
 
-        corpSync("yanlijingtest", password);
+//        corpSync("yanlijingtest", password);
 //        corpSyncTest("yanlijingtest1", pwd);
 //        System.out.println(result);
-        
+
+//        corpSync("yljcorptest", password);
+//        userSync1(password);
+//        userBinding("yljcorptest","yljusertest", password);
+//        userLogin("yljusertest", 0L , 0L, password, "172.20.11.206");
+
+//        corpSync("kjxt0001", password);
+//        userSync(password, "yljusertest1", "18629619241");
+//        userBinding("yljusertest1", "kjxt0001", password);
+//        userLogin("PACC518579083591", 0L, 0L, password, "172.20.11.206");
+
+//        queryPrice(pwd);
+//        getOrderService(password);
+
+        applyCards(pwd_inner);
+        activeProductCard(pwd_inner,userName_inner);
+        addService(userName_inner, "2", "PRODUCT_TYPE_YKJ_EDU","23", pwd_inner);
+        renewService(userName_inner, "2", "PRODUCT_TYPE_YKJ_EDU","24", pwd_inner);
+
+    }
+
+    private static void renewService(String userName, String userType, String productType,String IISPOrderId, String pwd) throws UnsupportedEncodingException {
+        String strTest = renewServiceXml(userName, userType, productType, IISPOrderId);
+        String url = encrypt(strTest, pwd);
+    }
+
+    private static String renewServiceXml(String userName, String userType, String productType, String IISPOrderId) {
+        StringBuffer sbXml = new StringBuffer(100);
+        sbXml.append("<?xml version=\"1.0\" encoding = \"utf-8\"?>");
+        sbXml.append("<request>");
+        sbXml.append("<type>renewService</type>");
+        sbXml.append("<data>");
+        sbXml.append("<attr name=\"userAccount\">" + userName + "</attr>");
+        sbXml.append("<attr name=\"userType\">" + userType + "</attr>");
+        sbXml.append("<attr name=\"productType\">" + productType + "</attr>");
+        sbXml.append("<attr name=\"IISPOrderId\">" + IISPOrderId + "</attr>");
+        sbXml.append("<attr name=\"language\">" + 1 + "</attr>");
+        sbXml.append("<attr name=\"accountNum\">" + 1 + "</attr>");
+        sbXml.append("<attr name=\"maxUser\">" + "2" + "</attr>");
+        sbXml.append("<attr name=\"buyYear\">" + "5" + "</attr>");
+        sbXml.append("<attr name=\"timeUnit\">" + 2 + "</attr>");
+        sbXml.append("<attr name=\"currency\">" + 1 + "</attr>");
+        sbXml.append("<attr name=\"serviceId\">" + 7921491391L + "</attr>");
+        sbXml.append("</data>");
+        sbXml.append("</request>");
+        System.out.println(sbXml.toString());
+        return sbXml.toString();
+    }
+
+    private static void activeProductCard(String pwd_inner,String userAccount) throws UnsupportedEncodingException {
+        String strTest = activeProductCardXml(userAccount);
+        encrypt(strTest, pwd_inner);
+    }
+
+    private static String activeProductCardXml(String userAccount) {
+        StringBuffer sbXml = new StringBuffer(100);
+        sbXml.append("<?xml version=\"1.0\" encoding = \"utf-8\"?>");
+        sbXml.append("<request>");
+        sbXml.append("<type>activeProductCard</type>");
+        sbXml.append("<data>");
+        sbXml.append("<attr name=\"userAccount\">" + userAccount + "</attr>");
+        sbXml.append("<attr name=\"productType\">" + "PRODUCT_TYPE_YKJ_EDU" + "</attr>");
+        sbXml.append("<attr name=\"accountNum\">" + "1" + "</attr>");
+        sbXml.append("<attr name=\"maxUser\">" + "2" + "</attr>");
+        sbXml.append("<attr name=\"language\">" + "1" + "</attr>");
+        sbXml.append("</data>");
+        sbXml.append("</request>");
+        return sbXml.toString();
+    }
+
+    private static void applyCards(String pwd_inner) throws UnsupportedEncodingException {
+        String strTest = applyCardsXml();
+        encrypt(strTest, pwd_inner);
+    }
+
+    private static String applyCardsXml() {//PRODUCT_TYPE_YKJ_EDU,PRODUCT_TYPE_YKJ_EDU
+        StringBuffer sbXml = new StringBuffer(100);
+        sbXml.append("<?xml version=\"1.0\" encoding = \"utf-8\"?>");
+        sbXml.append("<request>");
+        sbXml.append("<type>applyCards</type>");
+        sbXml.append("<data>");
+        sbXml.append("<attr name=\"productType\">" + "PRODUCT_TYPE_YKJ_EDU" + "</attr>");
+        sbXml.append("<attr name=\"accountNum\">" + "1" + "</attr>");
+        sbXml.append("<attr name=\"maxUser\">" + "2" + "</attr>");
+        sbXml.append("<attr name=\"language\">" + "1" + "</attr>");
+        sbXml.append("<attr name=\"buyYear\">" + "3" + "</attr>");
+        sbXml.append("<attr name=\"timeUnit\">" + "2" + "</attr>");
+        sbXml.append("<attr name=\"buyCount\">" + "15" + "</attr>");
+        sbXml.append("</data>");
+        sbXml.append("</request>");
+        return sbXml.toString();
+    }
+
+    private static void getOrderService(String pwd) throws UnsupportedEncodingException {
+        String strTest = getOrderServiceXml();
+        encrypt(strTest, pwd);
+    }
+
+    private static String getOrderServiceXml() {
+        StringBuffer sbXml = new StringBuffer(100);
+        sbXml.append("<?xml version=\"1.0\" encoding = \"utf-8\"?>");
+        sbXml.append("<request>");
+        sbXml.append("<type>getOrderService</type>");
+        sbXml.append("<data>");
+        sbXml.append("<attr name=\"IISPOrderId\">" + "5bd9f4f8a55e4d42ad1b557e368c16d8" + "</attr>");
+        sbXml.append("</data>");
+        sbXml.append("</request>");
+        return sbXml.toString();
+    }
+
+    private static void queryPrice(String pwd) throws UnsupportedEncodingException {
+        String strTest = getQueryPriceXml();
+        encrypt(strTest, pwd);
+//        execute(encrypt(strTest, pwd));
+    }
+
+    private static String getQueryPriceXml() {
+        StringBuffer sbXml = new StringBuffer(100);
+        sbXml.append("<?xml version=\"1.0\" encoding = \"utf-8\"?>");
+        sbXml.append("<request>");
+        sbXml.append("<type>queryPrice</type>");
+        sbXml.append("<data>");
+//        sbXml.append("<attr name=\"maxUser\">" + 2 + "</attr>");
+//        sbXml.append("<attr name=\"buyYear\">" + 1 + "</attr>");
+//        sbXml.append("<attr name=\"accountNum\">" + 1 + "</attr>");
+//        sbXml.append("<attr name=\"language\">" + 1 + "</attr>");
+//        sbXml.append("<attr name=\"currency\">" + 1 + "</attr>");
+        sbXml.append("<attr name=\"productType\">" + "PRODUCT_TYPE_JDYV5" + "</attr>");
+        sbXml.append("<attr name=\"subProducts\">" + "[{\"subProductType\":\"PRODUCT_TYPE_V5YKJ\",\"subUserNum\":1},{\"subProductType\":\"PRODUCT_TYPE_V5YJXC\",\"subUserNum\":2},{\"subProductType\":\"PRODUCT_TYPE_V5LS\",\"subUserNum\":3},{\"subProductType\":\"PRODUCT_TYPE_V5POS\",\"subUserNum\":4}]" + "</attr>");
+//        sbXml.append("<attr name=\"subProducts\">" + "[{\"subProductType\":\"PRODUCT_TYPE_V5YJXC\",\"subUserNum\":1}]" + "</attr>");
+//        sbXml.append("<attr name=\"subProducts\">" + "[{\"subProductType\":\"PRODUCT_TYPE_V5YKJ\",\"subUserNum\":1},{\"subProductType\":\"PRODUCT_TYPE_V5YJXC\",\"subUserNum\":1},{\"subProductType\":\"PRODUCT_TYPE_V5LS\",\"subUserNum\":1},{\"subProductType\":\"PRODUCT_TYPE_V5POS\",\"subUserNum\":1}]" + "</attr>");
+//        sbXml.append("<attr name=\"subProducts\">" + "[{\"subProductType\":\"PRODUCT_TYPE_V5YKJ\",\"subUserNum\":1},{\"subProductType\":\"PRODUCT_TYPE_V5YJXC\",\"subUserNum\":1},{\"subProductType\":\"PRODUCT_TYPE_V5LS\",\"subUserNum\":1},{\"subProductType\":\"PRODUCT_TYPE_V5POS\",\"subUserNum\":1}]" + "</attr>");
+//        sbXml.append("<attr name=\"subProducts\">" + "[{\"subProductType\":\"PRODUCT_TYPE_V5YKJ\",\"subUserNum\":1},{\"subProductType\":\"PRODUCT_TYPE_V5YJXC\",\"subUserNum\":1},{\"subProductType\":\"PRODUCT_TYPE_V5LS\",\"subUserNum\":1},{\"subProductType\":\"PRODUCT_TYPE_V5POS\",\"subUserNum\":1}]" + "</attr>");
+//        sbXml.append("<attr name=\"subProducts\">" + "[{\"subProductType\":\"PRODUCT_TYPE_V5YKJ\",\"subUserNum\":1},{\"subProductType\":\"PRODUCT_TYPE_V5YJXC\",\"subUserNum\":1},{\"subProductType\":\"PRODUCT_TYPE_V5LS\",\"subUserNum\":1},{\"subProductType\":\"PRODUCT_TYPE_V5POS\",\"subUserNum\":1}]" + "</attr>");
+        sbXml.append("</data>");
+        sbXml.append("</request>");
+        return sbXml.toString();
+    }
+
+    private static void userSync(String password, String yljusertest1, String mobile) throws UnsupportedEncodingException {
+        String strTest = getXml(yljusertest1, mobile);
+        execute(encrypt(strTest, password));
+    }
+
+    private static String getXml(String yljusertest1, String mobile) {
+        StringBuffer sbXml = new StringBuffer(100);
+        sbXml.append("<?xml version=\"1.0\" encoding = \"utf-8\"?>");
+        sbXml.append("<request>");
+        sbXml.append("<type>userSync</type>");
+        sbXml.append("<data>");
+        sbXml.append("<attr name=\"userAccount\">" + yljusertest1 + "</attr>");
+        sbXml.append("<attr name=\"email\"></attr>");
+        sbXml.append("<attr name=\"mobile\">" + mobile + "</attr>");
+        sbXml.append("<attr name=\"phone\"></attr>");
+        sbXml.append("</data>");
+        sbXml.append("</request>");
+        return sbXml.toString();
     }
 
     private static void getCorpServiceList(String corpAccount, String pwd) throws UnsupportedEncodingException {
