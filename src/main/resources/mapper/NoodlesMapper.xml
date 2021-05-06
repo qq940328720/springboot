@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cold.face.dal.dao.NoodlesMapper">
+<mapper namespace="cold.face.dal.dao.NoodlesDao">
   <resultMap id="BaseResultMap" type="cold.face.dal.model.Noodles">
     <!--
       WARNING - @mbg.generated

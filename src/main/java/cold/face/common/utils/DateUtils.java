@@ -6,7 +6,14 @@ import org.slf4j.LoggerFactory;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
+import java.util.TimeZone;
 
 /**
  * Created with IntelliJ IDEA.
@@ -942,21 +949,27 @@ public class DateUtils {
             list.add(minDate);
             int DAY_OF_MONTH = 1;
             if (date == null) {
-                DAY_OF_MONTH = minDate.getDate();
+                Calendar minCalendar = Calendar.getInstance();
+                minCalendar.setTime(minDate);
+                DAY_OF_MONTH = minCalendar.get(Calendar.DAY_OF_MONTH);
             } else {
-                DAY_OF_MONTH = date.getDate();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                DAY_OF_MONTH = calendar.get(Calendar.DAY_OF_MONTH);
             }
             for (int i = 0; i < installments - 1; i++) {
+                Calendar minCalendar = Calendar.getInstance();
+                minCalendar.setTime(minDate);
                 Calendar lastDate = Calendar.getInstance();
-                lastDate.set(Calendar.MONTH, minDate.getMonth() + (i + 1));
+                lastDate.set(Calendar.MONTH, minCalendar.get(Calendar.MONTH) + (i + 1));
                 lastDate.set(Calendar.DATE, 1);// 把日期设置为当月第一天
                 lastDate.roll(Calendar.DATE, -1);// 日期回滚一天，也就是本月最后一天
 //	                log.info("====>"+lastDate.getTime());
 
-                if (lastDate.getTime().getDate() <= DAY_OF_MONTH) {
+                if (lastDate.get(Calendar.DAY_OF_MONTH) <= DAY_OF_MONTH) {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(lastDate.getTime());
-                    calendar.set(Calendar.DAY_OF_MONTH, lastDate.getTime().getDate());
+                    calendar.set(Calendar.DAY_OF_MONTH, lastDate.get(Calendar.DAY_OF_MONTH));
                     //calendar.add(Calendar.MONTH, i );
                     Date d = calendar.getTime();
                     list.add(d);

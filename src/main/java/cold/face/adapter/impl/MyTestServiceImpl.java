@@ -1,6 +1,6 @@
 package cold.face.adapter.impl;
 
-import cold.face.dal.dao.NoodlesTypeMapper;
+import cold.face.dal.dao.NoodlesTypeDao;
 import cold.face.dal.model.NoodlesType;
 import cold.face.facade.dto.response.ResponseDTO;
 import cold.face.facade.service.MyTestService;
@@ -20,7 +20,7 @@ import java.util.List;
 @Service
 public class MyTestServiceImpl implements MyTestService {
     @Autowired
-    private NoodlesTypeMapper noodlesTypeMapper;
+    private NoodlesTypeDao noodlesTypeDao;
 
     //自动注入jdbcTemplate
     @Autowired
@@ -58,7 +58,7 @@ public class MyTestServiceImpl implements MyTestService {
     @Override
     public ResponseDTO getNoodlesTypeByMybatis() {
         ResponseDTO responseDTO = new ResponseDTO();
-        List<NoodlesType> types = noodlesTypeMapper.getAllNoodlesType();
+        List<NoodlesType> types = noodlesTypeDao.getAllNoodlesType();
         responseDTO.setData(types);
         return responseDTO;
     }
@@ -66,7 +66,7 @@ public class MyTestServiceImpl implements MyTestService {
     @Override
     public ResponseDTO getNoodlesTypeBySqlProvider() {
         ResponseDTO responseDTO = new ResponseDTO();
-        List<NoodlesType> types = noodlesTypeMapper.getNoodlesTypeBySqlProvider();
+        List<NoodlesType> types = noodlesTypeDao.getNoodlesTypeBySqlProvider();
         responseDTO.setData(types);
         return responseDTO;
     }

@@ -7,6 +7,7 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -31,8 +32,7 @@ public class Swagger2Config {
                 .forCodeGeneration(true)
                 //.pathMapping("/")// base，最终调用接口后会和paths拼接在一起
                 .select()
-                .apis(RequestHandlerSelectors
-                        .basePackage("cold.face.controller"))
+                .apis(RequestHandlerSelectors.basePackage("cold.face.controller"))
 //                .paths(PathSelectors.regex("/coldface/.*"))//过滤的接口
                 .paths(PathSelectors.regex("/.*"))//过滤的接口
                 //.paths(PathSelectors.any())//任何路径
@@ -42,11 +42,11 @@ public class Swagger2Config {
 
     //apiInfo：API接口相关描述
     private ApiInfo apiInfo() {
-      /*
-       * ApiInfo apiInfo = new ApiInfo("Cat相关接口",//大标题 "Cat相关接口，主要用于测试.",//小标题
-       * "1.0",//版本"http://wyait.blog.51cto.com", "wyait",//作者
-       * "上海舞泡科技有限公司",//链接显示文字 "http://www.5pao.com/"//网站链接 );
-       */
+        /*
+         * ApiInfo apiInfo = new ApiInfo("Cat相关接口",//大标题 "Cat相关接口，主要用于测试.",//小标题
+         * "1.0",//版本"http://wyait.blog.51cto.com", "wyait",//作者
+         * "上海舞泡科技有限公司",//链接显示文字 "http://www.5pao.com/"//网站链接 );
+         */
         return new ApiInfoBuilder()
                 .title("cat相关API")
                 //大标题
@@ -55,24 +55,24 @@ public class Swagger2Config {
                 .version("1.0")
                 //版本
                 .termsOfServiceUrl("NOterms of service")
-                .contact("http://wyait.blog.51cto.com")
+                .contact(new Contact("http://wyait.blog.51cto.com", "", ""))
                 //作者
                 .license("Version1.0")
                 .licenseUrl("http://www.5pao.com")
                 .build();
 
-      /*
-       * return new ApiInfoBuilder()
-       * .title("Spring Boot中使用Swagger2构建RESTfulAPIs")
-       * .description("更多Spring Boot相关资料，百度一下")
-       *.termsOfServiceUrl("http://wyait.blog.51cto.com")
-       * .version("1.0.0").build();
-       */
+        /*
+         * return new ApiInfoBuilder()
+         * .title("Spring Boot中使用Swagger2构建RESTfulAPIs")
+         * .description("更多Spring Boot相关资料，百度一下")
+         *.termsOfServiceUrl("http://wyait.blog.51cto.com")
+         * .version("1.0.0").build();
+         */
         //return apiInfo;
     }
 
-   /* 升级版：排除其他方法，比如返回页面的。也可以使用注解：@ApiIgnore
-@Bean
+    /* 升级版：排除其他方法，比如返回页面的。也可以使用注解：@ApiIgnore
+    @Bean
     public Docket createRestApi2() {
       // 排除不返回json数据的接口（页面等之类的）
        Predicate<RequestHandler> predicate = newPredicate<RequestHandler>() {
@@ -103,5 +103,5 @@ public class Swagger2Config {
            .version("1.0")//版本
             .build();
     }
-*/
+    */
 }

@@ -5,7 +5,7 @@
 <generatorConfiguration>
     <!--数据库驱动 -->
     <classPathEntry
-            location="/home/ylj/maven/repository/mysql/mysql-connector-java/5.1.35/mysql-connector-java-5.1.35.jar"/>
+            location="E:\maven-3.5.2\repository\mysql\mysql-connector-java\5.1.35\mysql-connector-java-5.1.35.jar"/>
     <context id="DB2Tables">
         <property name="javaFileEncoding" value="UTF-8"/>
         <!--<commentGenerator type="myGenerator.MyCommentGenerator">-->
@@ -16,8 +16,8 @@
         </commentGenerator>
         <!--数据库链接地址账号密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/cold_face" userId="root"
-                        password="123456">
+                        connectionURL="jdbc:mysql://47.106.129.6:3306/cold_face" userId="root"
+                        password="yanlijing">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
@@ -37,11 +37,19 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--生成对应表及类名 -->
-        <table tableName="noodles" domainObjectName="Noodles" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
+<!--        <table tableName="noodles" domainObjectName="Noodles" enableCountByExample="false"-->
+<!--               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false"></table>-->
 
-        <table tableName="noodles_type" domainObjectName="NoodlesType" enableCountByExample="false"
+<!--        <table tableName="noodles_type" domainObjectName="NoodlesType" enableCountByExample="false"-->
+<!--               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false"></table>-->
+
+<!--        <table tableName="t_order" domainObjectName="Order" enableCountByExample="false"-->
+<!--               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false"></table>-->
+
+        <table tableName="t_goods_number" domainObjectName="GoodsNumber" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
     </context>

@@ -1,7 +1,7 @@
 package cold.face.adapter.impl;
 
-import cold.face.dal.dao.NoodlesMapper;
-import cold.face.dal.dao.NoodlesTypeMapper;
+import cold.face.dal.dao.NoodlesDao;
+import cold.face.dal.dao.NoodlesTypeDao;
 import cold.face.dal.model.NoodlesType;
 import cold.face.facade.dto.info.NoodlesTypeInfoDTO;
 import cold.face.facade.dto.response.ResponseDTO;
@@ -13,17 +13,17 @@ import org.springframework.stereotype.Service;
 public class NoodlesServiceImpl implements NoodlesService {
 
     @Autowired
-    private NoodlesTypeMapper noodlesTypeMapper;
+    private NoodlesTypeDao noodlesTypeDao;
 
     @Autowired
-    private NoodlesMapper noodlesMapper;
+    private NoodlesDao noodlesDao;
 
     @Override
     public ResponseDTO addNoodlesType(NoodlesTypeInfoDTO request) {
         ResponseDTO responseDTO = new ResponseDTO();
         String pCode = request.getParentTypeCode();
         if (null != pCode && "" != pCode) {
-            NoodlesType type = noodlesTypeMapper.getNoodlesTypeByTypeCode(pCode);
+            NoodlesType type = noodlesTypeDao.getNoodlesTypeByTypeCode(pCode);
             if (type == null) {
                 responseDTO.setMessage("上级分类不存在！");
                 responseDTO.setSuccess(true);
@@ -38,7 +38,7 @@ public class NoodlesServiceImpl implements NoodlesService {
         noodlesType.setRemark(request.getRemark());
         noodlesType.setParentTypeCode(pCode);
         noodlesType.setTypeCode(request.getTypeCode());
-        noodlesTypeMapper.insert(noodlesType);
+        noodlesTypeDao.insert(noodlesType);
         responseDTO.setSuccess(true);
         responseDTO.setExcute(true);
         return responseDTO;
